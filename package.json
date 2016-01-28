@@ -1,7 +1,7 @@
 {
     "name": "movie",
     "version": "0.2.0",
-    "description": "Everythinng about movie app for  imooc",
+    "description": "",
     "main": "app.js",
     "directories": {
         "test": "test"

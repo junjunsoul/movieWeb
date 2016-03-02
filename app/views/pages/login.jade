@@ -1,0 +1,16 @@
+extends ../layout
+block content
+    .container
+        .row
+            .col-md-3.center-block
+                form(method="post",action="/user/singnin")
+                    .modal-header 登录
+                    .modal-body
+                        .from-group
+                            label(for="singninName") 用户名
+                            input#singnupName.form-control(name="user[name]",type="text")
+                        .from-group
+                            label(for="singninPassword") 密码
+                            input#singninPassword.form-control(name="user[password]",type="text")
+                    .modal-footer
+                        button.btn.btn-success(type="submit") 登录

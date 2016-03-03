@@ -3,7 +3,31 @@ block content
     .container
         .row
             .col-md-7
-                embed(src="#{movie.flash}",allowfullScreen="true",quality="high",width="720",height="600",align="middle",type="application/x-shckwave-flash")
+                embed(src="#{movie.flash}",allowfullScreen="true",quality="high",width="720",height="400",align="middle",type="application/x-shckwave-flash")
+                .panel.panel-defatul
+                    .panel-heading
+                        h3 评论区
+                    .panel-body
+                        ul.media-list
+                            each item in comment
+                                li.media
+                                    .pull-left
+                                        img.media-object(src="",style="width:64px; height:64px",alt="1")
+                                    .media-body
+                                    h4.media-heading AAA
+                                    p #{item.content}
+                                    .media
+                                        .pull-left
+                                            img.media-object(src="",style="width:64px; height:64px;",alt="1")        
+                                        .media-body
+                                            h4.media-heading BBB
+                                            p year
+                        form(method="post",action="/user/comment")
+                            input(type="hidden",name="comment[movie]",value="#{movie._id}")
+                            input(type="hidden",name="comment[from]",value="#{user._id}")
+                            .form-group
+                                textarea.form-control(name="comment[content]",row="3")
+                            button.btn.btn-primary(type="submit") 提交
             .col-md-5
                 dl.dl-horizontal
                     dt 电影名
@@ -15,6 +39,6 @@ block content
                     dt 语言
                     dd= movie.language
                     dt 简介
-                    dd= movie.summary
+                    dd= movie.summary      
 
 

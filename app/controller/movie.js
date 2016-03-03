@@ -1,6 +1,8 @@
 var Movie = require('../models/movie');
+var Comment = require('../models/comment');
 var _ = require('underscore');
-exports.list=function(req, res) {
+exports.list = function(req, res) {
+
     Movie.fetch(function(err, movies) {
         if (err)
             console.log(err);
@@ -11,7 +13,7 @@ exports.list=function(req, res) {
     });
 };
 
-exports.del=function(req, res) {
+exports.del = function(req, res) {
     var id = req.query.id;
     if (id) {
         Movie.remove({ _id: id }, function(err, movie) {
@@ -24,7 +26,7 @@ exports.del=function(req, res) {
         })
     }
 };
-exports.movie=function(req, res) {
+exports.movie = function(req, res) {
     res.render('admin', {
         title: "imooc 后台",
         movie: {
@@ -40,7 +42,7 @@ exports.movie=function(req, res) {
     });
 };
 
-exports.update=function(req, res) {
+exports.update = function(req, res) {
     var id = req.params.id;
     if (id) {
         Movie.findById(id, function(err, movie) {
@@ -51,7 +53,7 @@ exports.update=function(req, res) {
         });
     }
 };
-exports.new=function(req, res) {
+exports.new = function(req, res) {
 
     var id = req.body.movie._id;
 
@@ -88,14 +90,19 @@ exports.new=function(req, res) {
         }
     }
 };
-exports.detail=function(req, res) {
+exports.detail = function(req, res) {
     var id = req.params.id;
+    var _user = req.session.user;
     Movie.findById(id, function(err, movie) {
-        if (err)
-            console.log(err);
-        res.render('detail', {
-            title: "imooc 详情页",
-            movie: movie
+        Comment.find({ movie: id }, function(err, comment) {
+            if (err)
+                console.log(err);
+            res.render('detail', {
+                title: "imooc 详情页",
+                movie: movie,
+                comment: comment,
+                user: _user
+            });
         });
     })
 

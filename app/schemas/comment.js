@@ -6,6 +6,11 @@ var CommentSchema = new Schema({
     from: { type: ObjectId, ref: "user" },
     to: { type: ObjectId, ref: "user" },
     content: String,
+    reply: [{
+        from: { type: ObjectId, ref: "user" },
+        to: { type: ObjectId, ref: "user" },
+        content: String
+    }],
     meta: {
         createAt: { type: Date, default: Date.now() },
         updateAt: { type: Date, default: Date.now() }

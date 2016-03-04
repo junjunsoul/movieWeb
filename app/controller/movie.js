@@ -94,7 +94,11 @@ exports.detail = function(req, res) {
     var id = req.params.id;
     var _user = req.session.user;
     Movie.findById(id, function(err, movie) {
-        Comment.find({ movie: id }, function(err, comment) {
+        Comment
+        .find({ movie: id })
+        .populate('from',"name")
+        .populate('reply.from reply.to','name')
+        .exec(function(err, comment) {
             if (err)
                 console.log(err);
             res.render('detail', {

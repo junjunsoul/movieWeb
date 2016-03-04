@@ -12,22 +12,26 @@ block content
                             each item in comment
                                 li.media
                                     .pull-left
-                                        img.media-object(src="",style="width:64px; height:64px",alt="1")
+                                        a.comment(href="#comments",data-cid="#{item._id}",data-tid="#{item.from._id}")
+                                            img.media-object(src="",style="width:64px; height:64px",alt="1")
                                     .media-body
-                                    h4.media-heading AAA
+                                    h4.media-heading #{item.from.name}
                                     p #{item.content}
-                                    .media
-                                        .pull-left
-                                            img.media-object(src="",style="width:64px; height:64px;",alt="1")        
-                                        .media-body
-                                            h4.media-heading BBB
-                                            p year
-                        form(method="post",action="/user/comment")
-                            input(type="hidden",name="comment[movie]",value="#{movie._id}")
-                            input(type="hidden",name="comment[from]",value="#{user._id}")
-                            .form-group
-                                textarea.form-control(name="comment[content]",row="3")
-                            button.btn.btn-primary(type="submit") 提交
+                                    if item.reply && item.reply.length>0
+                                        each reply in item.reply
+                                            .media
+                                                .pull-left
+                                                    img.media-object(src="",style="width:64px; height:64px;",alt="1")
+                                                .media-body
+                                                    h4.media-heading #{reply.from.name}
+                                                    p #{reply.content}
+                        #comments
+                            form#fromComnent(method="post",action="/user/comment")
+                                input(type="hidden",name="comment[movie]",value="#{movie._id}")
+                                input(type="hidden",name="comment[from]",value="#{user._id}")
+                                .form-group
+                                    textarea.form-control(name="comment[content]",row="3")
+                                button.btn.btn-primary(type="submit") 提交
             .col-md-5
                 dl.dl-horizontal
                     dt 电影名
@@ -40,5 +44,5 @@ block content
                     dd= movie.language
                     dt 简介
                     dd= movie.summary      
-
+    script(src="/js/detail.js")
 
